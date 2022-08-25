@@ -19,7 +19,7 @@ export default class Config extends AwsCommand {
 
   async run() {
     const { flags: { clusterKey, taskName } } = this.parse(Config)
-    const { config, variables, envVars } = this.configWithVariables({
+    const { variables, envVars } = this.configWithVariables({
       clusterKey,
       taskName,
     })
