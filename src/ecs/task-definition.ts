@@ -54,9 +54,19 @@ export const secretsFromConfiguration = (task: string, clusterName: string, conf
 
 const portMappingsFromConfiguration = (config: ConfigurationTaskDefinition) => {
   if (config.ports) {
-    return config.ports.map(port => ({
-      containerPort: port,
-    }))
+    return config.ports.map(port => {
+      if (typeof port === 'object') {
+        const { containerPort, protocol } = port
+        return {
+          containerPort,
+          protocol: protocol || 'tcp',
+        }
+      }
+
+      return {
+        containerPort: port,
+      }
+    })
   }
 }
 
